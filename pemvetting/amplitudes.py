@@ -22,11 +22,11 @@ def check_amplitudes(event, omega_dir, coup_func_dir=__coup_func_dir__, verbose=
         os.makedirs(omega_strain_dir)
     if not os.path.exists(omega_full_dir):
         os.makedirs(omega_full_dir)
-    event.find_lowest_false_rate(false_rates, omega_strain_dir, config_strain_template)
-    event.create_config(config_full_filename, config_full_template)
-    full_scan_summary = run_scans(event.scan_time, config_full_filename, omega_full_dir)
-#     out_dir = '/home/philippe.nguyen/public_html/PEMVettingResults/'
-#     full_scan_summary = os.path.join(out_dir, event.graceid, event.ifo, 'omegascans', 'full', 'summary.txt')
+#     event.find_lowest_false_rate(false_rates, omega_strain_dir, config_strain_template)
+#     event.create_config(config_full_filename, config_full_template)
+#     full_scan_summary = run_scans(event.scan_time, config_full_filename, omega_full_dir)
+    out_dir = '/home/philippe.nguyen/public_html/PEMVettingResults/'
+    full_scan_summary = os.path.join(out_dir, event.graceid, event.ifo, 'omegascans', 'full', 'summary.txt')
     #### READ OMEGASCAN SUMMARY FILE ####
     omega_scan_df = read_omega_scan_summary(full_scan_summary)
     gw_exists = (omega_scan_df.loc[event.name].peakTime > 1)

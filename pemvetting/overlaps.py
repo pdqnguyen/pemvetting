@@ -56,7 +56,6 @@ def check_overlaps(event, channels, t_unc=0.001, f_unc=0, verbose=False):
         # WAVEFORM (PATH) OVERLAP
         if event.tf_path is not None:
             tt = time.time()
-            print(times[0], times[-1])
             tf_path = event.tf_path.crop(times[0], times[-1])
             contour_path = path_to_contour(tf_path, times, frequencies, t_unc=0.001, f_unc=0)
             if verbose:

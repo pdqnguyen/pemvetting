@@ -44,8 +44,6 @@ def vetting(graceid, verbose=False):
             print('PEM amplitude checks for ' + ifo + ' complete.')
         channels = sorted(amplitude_results.keys())
         failed_dict = {channel: 'NoCouplingFunctionFound' for channel in failed}
-        for key, value in failed_dict.items():
-            print(key + ' - ' + value)
         #### SIGNAL OVERLAP CHECKS ####
         overlap_results = check_overlaps(event, channels, verbose=verbose)
         if verbose:
@@ -73,13 +71,9 @@ def vetting(graceid, verbose=False):
         single_state = vetting_results(results_filename, amplitude_results, contour_overlap_results, path_overlap_results, verbose=verbose)
         if not os.path.exists(plots_dir):
             os.makedirs(plots_dir)
-#         for spec in specs:
-#             spec_plot(spec, plots_dir + '/{}.png'.format(spec.name.replace('_DQ','')), verbose=verbose)
         outseg_t = (event.outseg[1] - event.outseg[0])
         plot_delta_t = min([event.plot_times[0], outseg_t / 2.])
-#         tplot = (event.scan_time - 0.6 * plot_delta_t,
-#                  event.scan_time + 0.6 * plot_delta_t)
-        tplot = (event.end_time - plot_delta_t + 0.1, event.end_time + 0.1)
+        tplot = (event.end_time - plot_delta_t + 0.01, event.end_time + 0.01)
         for spec in specs:
             spec_plot(spec, plots_dir + '/{}.png'.format(spec.name.replace('_DQ','')), tplot=tplot, verbose=verbose)
         all_states.append(single_state)
