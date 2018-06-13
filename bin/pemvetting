@@ -17,13 +17,8 @@ graceid = sys.argv[1]
 vetting(graceid)
 sys.exit()
 
-try:
-    ### your code returns a pass/fail/hin state
-    ### if it needs to post images/files to GraceDb,
-    ### that should be done within the delegation
-    state = vetting.vetting(graceid)
-    print(state)
-    
+# try:
+#     state = vetting.vetting(graceid)
 #     ### format the report for the DQR
 #     report = dqrJson.format_report(
 #         "warn", ### we always warn to get human input for omegascans!
@@ -31,9 +26,9 @@ try:
 #         __author__,
 #         summary = 'Contribution of PEM events to GW event candidate',
 #     )
-
-except Exception as e:
-    pass
+# 
+# except Exception as e:
+#     pass
 #     import traceback
     
 #     ### format an error report for the DQR
