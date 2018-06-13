@@ -9,9 +9,7 @@ __coup_func_dir__ = '/home/philippe.nguyen/public_html/test/CoupFuncData'
 
 def check_amplitudes(event, omega_dir, coup_func_dir=__coup_func_dir__, verbose=False):
     
-    tt = time.time()
-    out_dir = '/home/philippe.nguyen/public_html/PEMVettingResults/'
-    
+    tt = time.time()    
     # Run strain omega scans and determine the lowest false rate that triggers the strain channel
     cw_dir = os.path.dirname(os.path.abspath(__file__))
     false_rates = ['1e-6', '1e-5', '1e-4', '1e-3', '5e-3']
@@ -27,6 +25,7 @@ def check_amplitudes(event, omega_dir, coup_func_dir=__coup_func_dir__, verbose=
     event.find_lowest_false_rate(false_rates, omega_strain_dir, config_strain_template)
     event.create_config(config_full_filename, config_full_template)
     full_scan_summary = run_scans(event.scan_time, config_full_filename, omega_full_dir)
+#     out_dir = '/home/philippe.nguyen/public_html/PEMVettingResults/'
 #     full_scan_summary = os.path.join(out_dir, event.graceid, event.ifo, 'omegascans', 'full', 'summary.txt')
     #### READ OMEGASCAN SUMMARY FILE ####
     omega_scan_df = read_omega_scan_summary(full_scan_summary)
