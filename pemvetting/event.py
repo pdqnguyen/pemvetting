@@ -21,24 +21,48 @@ class Event(Channel):
         Name of GW strain channel.
     ifo : str
         Interferometer
+    graceid : str
+        GraceDb id number.
+    m1 : float
+        Component mass 1.
+    m2 : float
+        Component mass 2.
+    s1z : float
+        Component z-direction spin 1.
+    s2z : float
+        Component z-direction spin 2.
+    start_time : float
+        GraceDb template start time.
+    end_time : float
+        GraceDb template end time.
+    template_duration : float
+        GraceDb template duration.
+    tf_path : gwpy.timeseries.TimeSeries object
+        Time-frequency path of candidate.
     frametype : str
         Frame type for extracting data.
     sample_rate : int
-        Sample rate (Hz).
+        Sample rate (Hz) of strain channel for omeg scans.
     search_time_range : int
         Time range (seconds) for omega scan data extraction.
-    frequency_range : tuple
+    search_frequency_range : tuple
         Min and max frequencies for omega scans.
-    q_range : tuple
+    search_q_range : tuple
         Min and max Q values for omega scans.
     search_window_duration : int, float
         Time window (seconds) for omega scan search.
     plot_times : array-like
         Time windows (seconds) for omega scan plots.
-    params : dict
-        Dictionary of event parameters extracted from GraceDb. See utils.get_event for more info.
-    tf_path : gwpy.timeseries.TimeSeries object
-        Time-frequency path of candidate.
+    overlap_t0 : float
+        Start time used in overlap checks.
+    overlap_t1 : float
+        End time used in overlap checks.
+    outseg : tuple
+        Start and end time of spectrograms used in overlap checks.
+    tres : float
+        Time resolution of spectrograms used in overlap checks.
+    fres : float
+        Frequency resolution of spectrograms used in overlap checks.
     """
     
     def __init__(self, graceid, ifo):
@@ -46,19 +70,18 @@ class Event(Channel):
         self.tf_path = self._get_tf_path() # Time-frequency path (TimeSeries object)
         self._init_scan_attrs(ifo) # Omega scan parameters
         # Parameters to be used in overlap checks
-        delta_t = 64
-        self.t0 = self.scan_time - delta_t / 2.
-        self.t1 = self.scan_time + delta_t / 2.
-        self.outseg = (self.end_time - delta_t / 50. + 0.1,
+        __delta_t__ = 64 # This is also the default time range for the omega scans
+        self.t0 = self.scan_time - __delta_t__ / 2.
+        self.t1 = self.scan_time + __delta_t__ / 2.
+        self.outseg = (self.end_time - __delta_t__ / 50. + 0.1,
                        self.end_time + 0.1)
-        self.tres = delta_t / 1e5
+        self.tres = __delta_t__ / 1e5
         self.fres = np.diff(self.search_frequency_range)[0] / 300.
     
     def _init_event_attrs(self, graceid, ifo):
         """
-        Initialize event attributes.
+        Initialize event attributes from GraceDb page.
         """
-        
         event_dict = utils.get_event(graceid)[ifo]
         for attr, value in event_dict.items():
             setattr(self, attr, value)
