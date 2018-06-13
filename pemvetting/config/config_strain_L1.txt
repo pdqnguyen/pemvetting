@@ -1,0 +1,34 @@
+# Q Scan configuration file
+# Automatically generated with tools/clf-to-omegascan.py
+# by detchar on 2016-11-21 16:22:31
+# from LIGO Channel List O2/L1-O2-standard.ini
+
+# clf-to-omegascan.py O2/L1-O2-standard.ini \
+#   --force \
+#   --white-noise-false-alarm-rate=0.001 \
+#   --plot-energy-max=25 \
+#   --always-plot-section=Calibrated h(t) \
+#   --output-file=O2/L1-O2-standard_omegascan.txt \
+#   --q-low=4.0 \
+#   --plot-energy-min=0 \
+#   --max-energy-loss=0.2 \
+
+[Context, Context]
+
+[Calibrated h(t),Calibrated h(t)]
+
+{
+  channelName:               'L1:GDS-CALIB_STRAIN'
+  frameType:                 'L1_HOFT_C00'
+  sampleFrequency:           16384
+  searchTimeRange:           64
+  searchFrequencyRange:      [20 300]
+  searchQRange:              [4 96]
+  searchMaximumEnergyLoss:   0.200000
+  whiteNoiseFalseRate:       5e-03
+  searchWindowDuration:      0.2
+  plotTimeRanges:            [.2 .5 1]
+  plotFrequencyRange:        []
+  plotNormalizedEnergyRange: [0.000000 25.000000]
+  alwaysPlotFlag:            0
+}
